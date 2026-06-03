@@ -25,7 +25,7 @@
         <div class="relative w-full h-80 bg-slate-950 rounded-xl border border-slate-800 shadow-inner overflow-hidden">
             <div class="absolute inset-0 bg-[linear-gradient(to_right,#0f172a_1px,transparent_1px),linear-gradient(to_bottom,#0f172a_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]"></div>
 
-            <?php foreach($doors as $door): 
+            <?php if (!empty($doors)): foreach($doors as $door): 
                 // Színkódok igazítása az adatbázis állapothoz
                 $color = $door['mode'] === 'LOCKED' ? 'bg-rose-500 shadow-[0_0_10px_#f43f5e]' : ($door['mode'] === 'ALWAYS_OPEN' ? 'bg-cyan-500 shadow-[0_0_10px_#06b6d4]' : 'bg-emerald-500 shadow-[0_0_10px_#10b981]');
                 $mapX = (int)($door['map_x'] ?? 50);
@@ -37,11 +37,11 @@
                         <span class="text-[10px] bg-slate-900/90 px-1.5 py-0.5 rounded border border-slate-800 font-medium text-slate-300 block whitespace-nowrap shadow-md"><?= htmlspecialchars($door['name']) ?></span>
                     </div>
                 </div>
-            <?php endforeach; ?>
+            <?php endforeach; endif; ?>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <?php foreach($doors as $door): ?>
+            <?php if (!empty($doors)): foreach($doors as $door): ?>
                 <div class="p-4 bg-slate-950 border border-slate-800 rounded-xl flex justify-between items-center shadow-md">
                     <div class="space-y-1">
                         <span class="font-semibold text-sm text-slate-200 block"><?= htmlspecialchars($door['name']) ?></span>
@@ -49,12 +49,12 @@
                     </div>
                     
                     <div class="flex gap-1 text-xs">
-                        <a href="index.php?tab=hardware&change_mode=NORMAL&door_id=<?= $door['id'] ?>" class="px-3 py-1.5 bg-slate-900 border border-slate-800 rounded-lg text-slate-300 hover:bg-emerald-600 hover:text-white hover:border-emerald-600 transition">Auto</a>
-                        <a href="index.php?tab=hardware&change_mode=ALWAYS_OPEN&door_id=<?= $door['id'] ?>" class="px-3 py-1.5 bg-slate-900 border border-slate-800 rounded-lg text-slate-300 hover:bg-cyan-600 hover:text-white hover:border-cyan-600 transition">Nyit</a>
-                        <a href="index.php?tab=hardware&change_mode=LOCKED&door_id=<?= $door['id'] ?>" class="px-3 py-1.5 bg-slate-900 border border-slate-800 rounded-lg text-slate-300 hover:bg-rose-600 hover:text-white hover:border-rose-600 transition">Tilt</a>
+                        <a href="index.php?tab=hardware&change_mode=NORMAL&door_id=<?= (int)$door['id'] ?>" class="px-3 py-1.5 bg-slate-900 border border-slate-800 rounded-lg text-slate-300 hover:bg-emerald-600 hover:text-white hover:border-emerald-600 transition">Auto</a>
+                        <a href="index.php?tab=hardware&change_mode=ALWAYS_OPEN&door_id=<?= (int)$door['id'] ?>" class="px-3 py-1.5 bg-slate-900 border border-slate-800 rounded-lg text-slate-300 hover:bg-cyan-600 hover:text-white hover:border-cyan-600 transition">Nyit</a>
+                        <a href="index.php?tab=hardware&change_mode=LOCKED&door_id=<?= (int)$door['id'] ?>" class="px-3 py-1.5 bg-slate-900 border border-slate-800 rounded-lg text-slate-300 hover:bg-rose-600 hover:text-white hover:border-rose-600 transition">Tilt</a>
                     </div>
                 </div>
-            <?php endforeach; ?>
+            <?php endforeach; endif; ?>
         </div>
     </main>
 </body>
