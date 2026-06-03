@@ -20,7 +20,7 @@
     </header>
 
     <main class="flex-1 p-6 max-w-5xl w-full mx-auto space-y-6">
-        <h2 class="text-lg font-bold text-slate-300 border-b border-slate-800 pb-2">🚪 Hardware & Térkép Menedzsment (MVC View)</h2>
+        <h2 class="text-lg font-bold text-slate-300 border-b border-slate-800 pb-2">🚪 Hardware & Térkép Menedzsment</h2>
         
         <div class="relative w-full h-80 bg-slate-950 rounded-xl border border-slate-800 shadow-inner overflow-hidden">
             <div class="absolute inset-0 bg-[linear-gradient(to_right,#0f172a_1px,transparent_1px),linear-gradient(to_bottom,#0f172a_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]"></div>
@@ -28,8 +28,10 @@
             <?php foreach($doors as $door): 
                 // Színkódok igazítása az adatbázis állapothoz
                 $color = $door['mode'] === 'LOCKED' ? 'bg-rose-500 shadow-[0_0_10px_#f43f5e]' : ($door['mode'] === 'ALWAYS_OPEN' ? 'bg-cyan-500 shadow-[0_0_10px_#06b6d4]' : 'bg-emerald-500 shadow-[0_0_10px_#10b981]');
+                $mapX = (int)($door['map_x'] ?? 50);
+                $mapY = (int)($door['map_y'] ?? 50);
             ?>
-                <div class="absolute transition-all duration-500 transform -translate-x-1/2 -translate-y-1/2" style="left: <?= (int)$door['map_x'] ?>%; top: <?= (int)$door['map_y'] ?>%;">
+                <div class="absolute transition-all duration-500 transform -translate-x-1/2 -translate-y-1/2" style="left: <?= $mapX ?>%; top: <?= $mapY ?>%;">
                     <div class="flex flex-col items-center gap-1">
                         <div class="w-4 h-4 <?= $color ?> rounded-full animate-pulse"></div>
                         <span class="text-[10px] bg-slate-900/90 px-1.5 py-0.5 rounded border border-slate-800 font-medium text-slate-300 block whitespace-nowrap shadow-md"><?= htmlspecialchars($door['name']) ?></span>
@@ -43,7 +45,7 @@
                 <div class="p-4 bg-slate-950 border border-slate-800 rounded-xl flex justify-between items-center shadow-md">
                     <div class="space-y-1">
                         <span class="font-semibold text-sm text-slate-200 block"><?= htmlspecialchars($door['name']) ?></span>
-                        <span class="text-[10px] text-slate-500 uppercase tracking-wider">Mód: <b class="text-slate-400"><?= $door['mode'] ?></b></span>
+                        <span class="text-[10px] text-slate-500 uppercase tracking-wider">Mód: <b class="text-slate-400"><?= htmlspecialchars($door['mode']) ?></b></span>
                     </div>
                     
                     <div class="flex gap-1 text-xs">
