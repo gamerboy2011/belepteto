@@ -6,7 +6,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 // JAVÍTÁS #3: Ha az Arduino hívja (uid paraméterrel), azonnal leválasztjuk az API-ra
-if (isset($_GET['uid'])) {
+if (!empty($_GET['uid'])) {
     require_once 'controllers/ApiController.php';
     $api = new ApiController();
     $api->processNfc();
